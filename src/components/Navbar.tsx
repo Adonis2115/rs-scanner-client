@@ -1,6 +1,6 @@
 import { Link, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react";
 
-export default function App() {
+export default function NavbarComponent() {
     const menuItems = ["Analyze Stock", "Scanner", "Positions"]
     return (
         <Navbar>
