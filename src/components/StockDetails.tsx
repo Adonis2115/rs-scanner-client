@@ -1,6 +1,6 @@
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
 
-export default function StockDetails() {
+export default function StockDetails({ data }: { data: StockDetail }) {
     return (
         <Table isStriped aria-label="Example static collection table">
             <TableHeader>
@@ -10,11 +10,11 @@ export default function StockDetails() {
             <TableBody>
                 <TableRow key="1">
                     <TableCell>Name</TableCell>
-                    <TableCell>Tata Consultancy Services</TableCell>
+                    <TableCell>{data.Name}</TableCell>
                 </TableRow>
                 <TableRow key="2">
                     <TableCell>Symbol</TableCell>
-                    <TableCell>TCS</TableCell>
+                    <TableCell>{data.Symbol}</TableCell>
                 </TableRow>
                 <TableRow key="3">
                     <TableCell>Side</TableCell>
@@ -26,19 +26,19 @@ export default function StockDetails() {
                 </TableRow>
                 <TableRow key="5">
                     <TableCell>RS Last</TableCell>
-                    <TableCell>14.5</TableCell>
+                    <TableCell>{data.PreviousRS}</TableCell>
                 </TableRow>
                 <TableRow key="6">
                     <TableCell>RS Current</TableCell>
-                    <TableCell>15.2</TableCell>
+                    <TableCell>{data.CurrentRS}</TableCell>
                 </TableRow>
                 <TableRow key="7">
-                    <TableCell>20 Period MA of RS</TableCell>
-                    <TableCell>14.1</TableCell>
+                    <TableCell>{data.MA_Length} Period MA of RS</TableCell>
+                    <TableCell>{data.MA}</TableCell>
                 </TableRow>
                 <TableRow key="8">
                     <TableCell>Current Streak</TableCell>
-                    <TableCell>5</TableCell>
+                    <TableCell>{data.Streak}</TableCell>
                 </TableRow>
             </TableBody>
         </Table>

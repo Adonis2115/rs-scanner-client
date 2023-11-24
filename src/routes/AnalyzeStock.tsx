@@ -5,14 +5,18 @@ import stocks from '../../stocks.json';
 import Navbar from "../components/Navbar";
 import SelectionAutocomplete from "../components/SelectionAutocomplete";
 import StockDetails from "../components/StockDetails";
+import { useData } from "../components/useData";
 
 function AnalyzeStock() {
     const [stock, setStock] = useState<number | null>(null)
     const [index, setIndex] = useState<number | null>(null)
     const [ma, setMa] = useState<string>("20")
-    console.log(`stock ${stock}`)
-    console.log(`index ${index}`)
-    console.log(`ma ${ma}`)
+    const fetchData = () => {
+        const { data, error, isLoading } = useData(`${import.meta.env.VITE_BASE_URL}/stock?ma=${ma}&stockid=${stock}&index=${index}`)
+        if (isLoading) return "Loading...."
+        if (error) return "Error..."
+        return <StockDetails data={data} />
+    }
     return (
         <>
             <Navbar />
@@ -21,9 +25,8 @@ function AnalyzeStock() {
                     <SelectionAutocomplete data={stocks} selectData='stock' setData={setStock} />
                     <SelectionAutocomplete data={indexs} selectData='index' setData={setIndex} />
                     <Input size="sm" type="input" label="MA Length RS" value={ma} onValueChange={setMa} />
-                    <Button radius="sm" size="lg" color="primary">Get Details</Button>
+                    <Button radius="sm" size="lg" color="primary" onClick={fetchData}>Get Details</Button>
                 </div>
-                <StockDetails />
             </div >
         </>
     )
