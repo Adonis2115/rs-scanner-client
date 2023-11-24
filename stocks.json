@@ -1,17 +1,17 @@
 [
   {
+    "id": 2,
+    "symbol": "Reliance",
+    "name": "Reliance Industries"
+  },
+  {
     "id": 3,
-    "label": "Reliance",
-    "value": "Reliance Industries"
+    "symbol": "TCS",
+    "name": "Tata Consultancy Services"
   },
   {
-    "id": 5,
-    "label": "TCS",
-    "value": "Tata Consultancy Services"
-  },
-  {
-    "id": 9,
-    "label": "RBL",
-    "value": "RBL Bank"
+    "id": 4,
+    "symbol": "RBL",
+    "name": "RBL Bank"
   }
 ]
