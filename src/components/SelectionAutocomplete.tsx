@@ -1,10 +1,11 @@
 import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
+import { Key } from "react";
 
 export default function SelectionAutocomplete({ data, selectData, setData }: {
     data: { id: number, symbol: string, name: string }[], selectData: string, setData: React.Dispatch<React.SetStateAction<number | null>>
 }) {
-    const onSelectionChange = (id: any) => {
-        setData(id);
+    const onSelectionChange = (id: Key) => {
+        setData(id as number);
     };
     return (
         <Autocomplete

@@ -24,7 +24,7 @@ function AnalyzeStock() {
                     <Input size="sm" type="input" label="MA Length RS" value={ma} onValueChange={setMa} />
                     <Button radius="sm" size="lg" color="primary" onClick={fetchData}>Get Details</Button>
                 </div>
-                {stockDetailsComponent}             
+                {stockDetailsComponent}
             </div >
         </>
     )
