@@ -1,6 +1,12 @@
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
+import useSWR from "swr";
 
-export default function StockDetails({ data }: { data: StockDetail }) {
+const fetcher = (...args: Parameters<typeof fetch>) => 
+    fetch(...args).then((res) => res.json());
+export default function StockDetails({ url }: { url: string }) {
+    const { data, error, isLoading } = useSWR(url, fetcher)
+    if(error) return "Error..."
+    else if(isLoading) return "Loading..."
     return (
         <Table isStriped aria-label="Example static collection table">
             <TableHeader>
@@ -43,4 +49,4 @@ export default function StockDetails({ data }: { data: StockDetail }) {
             </TableBody>
         </Table>
     );
-};
+}
