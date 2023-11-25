@@ -4,7 +4,7 @@ import useSWR from "swr";
 const fetcher = (...args: Parameters<typeof fetch>) =>
     fetch(...args).then((res) => res.json());
 export default function StockDetails({ url }: { url: string }) {
-    const { data, error, isLoading } = useSWR(url, fetcher)
+    const { data, error, isLoading }: { data: StockDetail, error: string | undefined, isLoading: boolean } = useSWR(url, fetcher)
     if (error) return "Error..."
     else if (isLoading) return "Loading..."
     return (
@@ -24,11 +24,11 @@ export default function StockDetails({ url }: { url: string }) {
                 </TableRow>
                 <TableRow key="3">
                     <TableCell>Side</TableCell>
-                    <TableCell>Bullish</TableCell>
+                    <TableCell>{data.Bearish ? "Bearish" : "Bullish"}</TableCell>
                 </TableRow>
                 <TableRow key="4">
                     <TableCell>Cross</TableCell>
-                    <TableCell>Cross Over</TableCell>
+                    <TableCell>{data.CrossOver ? `RS Cross Over ${data.MA_Length} MA RS` : (data.CrossUnder ? `RS Cross Under ${data.MA_Length} MA RS` : "-")}</TableCell>
                 </TableRow>
                 <TableRow key="5">
                     <TableCell>RS Last</TableCell>
