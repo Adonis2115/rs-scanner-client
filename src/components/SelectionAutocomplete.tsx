@@ -15,7 +15,7 @@ export default function SelectionAutocomplete({ data, selectData, setData }: {
             defaultSelectedKey={"1"}
         >
             {data.map((item) => (
-                <AutocompleteItem key={item.ID + item.Symbol} value={item.Name}>
+                <AutocompleteItem key={item.ID} value={item.Name}>
                     {item.Symbol}
                 </AutocompleteItem>
             ))}
