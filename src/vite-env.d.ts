@@ -19,3 +19,10 @@ interface StockDetail {
   Streak: number;
   Symbol: string;
 }
+
+interface Stock {
+  ID: number;
+  Name: string;
+  Index: boolean;
+  Symbol: string;
+}
