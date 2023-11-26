@@ -15,7 +15,7 @@ function Scanner() {
     const [scannerResultComponent, setScannerResultComponent] = useState<ReactNode>(null)
     const [filter, setFilter] = useState<string | null>(null)
     const fetchData = () => {
-        setScannerResultComponent(<ScannerResult url={`${import.meta.env.VITE_BASE_URL}/rs/${filter}?ma=${ma}&index=${index}&streak=${streak}`} />)
+        setScannerResultComponent(<ScannerResult url={`${import.meta.env.VITE_BASE_URL}/rs/${filter}?ma=${ma}&index=${index}&streak=${filter === "bullish" || filter === "bearish" ? streak : 0}`} />)
     }
     return (
         <>

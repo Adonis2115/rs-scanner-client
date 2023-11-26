@@ -12,6 +12,7 @@ export default function SelectionAutocomplete({ data, selectData, setData }: {
             label={`Select ${selectData}`}
             size="sm"
             onSelectionChange={onSelectionChange}
+            defaultSelectedKey={"1"}
         >
             {data.map((item) => (
                 <AutocompleteItem key={item.id} value={item.name}>
