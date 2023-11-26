@@ -6,15 +6,16 @@ import ScannerResult from "../components/ScannerResult";
 import SelectComponent from "../components/Select";
 import SelectionAutocomplete from "../components/SelectionAutocomplete";
 
-const filterList = [{ label: "Bullish", value: "bullish" }, { label: "Bearish", value: "bearish" }, { label: "Cross Over", value: "crossover" }, { label: "Cross Under", value: "crossunder" }]
+const filterList = [{ label: "Bullish", value: "bullish" }, { label: "Bearish", value: "bearish" }, { label: "Cross Over", value: "crossover" }, { label: "Cross Under", value: "crossunder" }, { label: "Streak", value: "streak" }]
 
 function Scanner() {
     const [index, setIndex] = useState<number | null>(null)
     const [ma, setMa] = useState<string>("20")
+    const [streak, setStreak] = useState<string>("0")
     const [scannerResultComponent, setScannerResultComponent] = useState<ReactNode>(null)
     const [filter, setFilter] = useState<string | null>(null)
     const fetchData = () => {
-        setScannerResultComponent(<ScannerResult url={`${import.meta.env.VITE_BASE_URL}/rs/${filter}?ma=${ma}&index=${index}`} />)
+        setScannerResultComponent(<ScannerResult url={`${import.meta.env.VITE_BASE_URL}/rs/${filter}?ma=${ma}&index=${index}&streak=${streak}`} />)
     }
     return (
         <>
@@ -24,6 +25,7 @@ function Scanner() {
                     <SelectionAutocomplete data={indexs} selectData='index' setData={setIndex} />
                     <Input size="sm" type="input" label="MA Length RS" value={ma} onValueChange={setMa} />
                     <SelectComponent filterList={filterList} setFilter={setFilter} />
+                    <Input size="sm" type="input" label="No. of Streak" value={streak} onValueChange={setStreak} />
                     <Button radius="sm" size="lg" color="primary" onClick={fetchData}>Scan</Button>
                 </div>
                 {scannerResultComponent}

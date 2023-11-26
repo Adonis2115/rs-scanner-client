@@ -10,6 +10,7 @@ export default function SelectComponent({ filterList, setFilter }: { filterList:
             <Select
                 label="Select filter"
                 className="max-w-xs"
+                size="sm"
                 onChange={handleSelectionChange}
             >
                 {filterList.map((filter) => (
