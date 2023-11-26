@@ -6,7 +6,7 @@ import ScannerResult from "../components/ScannerResult";
 import SelectComponent from "../components/Select";
 import SelectionAutocomplete from "../components/SelectionAutocomplete";
 
-const filterList = [{ label: "Bullish", value: "bullish" }, { label: "Bearish", value: "bearish" }, { label: "Cross Over", value: "crossover" }, { label: "Cross Under", value: "crossunder" }, { label: "Streak", value: "streak" }]
+const filterList = [{ label: "Bullish", value: "bullish" }, { label: "Bearish", value: "bearish" }, { label: "Cross Over", value: "crossover" }, { label: "Cross Under", value: "crossunder" }]
 
 function Scanner() {
     const [index, setIndex] = useState<number | null>(null)
@@ -25,7 +25,7 @@ function Scanner() {
                     <SelectionAutocomplete data={indexs} selectData='index' setData={setIndex} />
                     <Input size="sm" type="input" label="MA Length RS" value={ma} onValueChange={setMa} />
                     <SelectComponent filterList={filterList} setFilter={setFilter} />
-                    <Input size="sm" type="input" label="No. of Streak" value={streak} onValueChange={setStreak} />
+                    <Input isDisabled={filter === "bullish" || filter === "bearish" ? false : true} size="sm" type="input" label="No. of Streak" value={streak} onValueChange={setStreak} />
                     <Button radius="sm" size="lg" color="primary" onClick={fetchData}>Scan</Button>
                 </div>
                 {scannerResultComponent}
