@@ -3,14 +3,18 @@ import { ReactNode, useState } from "react";
 import indexs from '../../index.json';
 import Navbar from "../components/Navbar";
 import ScannerResult from "../components/ScannerResult";
+import SelectComponent from "../components/Select";
 import SelectionAutocomplete from "../components/SelectionAutocomplete";
+
+const filterList = [{ label: "Bullish", value: "bullish" }, { label: "Bearish", value: "bearish" }, { label: "Cross Over", value: "crossover" }, { label: "Cross Under", value: "crossunder" }]
 
 function Scanner() {
     const [index, setIndex] = useState<number | null>(null)
     const [ma, setMa] = useState<string>("20")
-    const [stockDetailsComponent, setStockDetailsComponent] = useState<ReactNode>(null)
+    const [scannerResultComponent, setScannerResultComponent] = useState<ReactNode>(null)
+    const [filter, setFilter] = useState<string | null>(null)
     const fetchData = () => {
-        setStockDetailsComponent(<ScannerResult url={`${import.meta.env.VITE_BASE_URL}/rs?ma=${ma}&index=${index}`} />)
+        setScannerResultComponent(<ScannerResult url={`${import.meta.env.VITE_BASE_URL}/rs/${filter}?ma=${ma}&index=${index}`} />)
     }
     return (
         <>
@@ -19,9 +23,10 @@ function Scanner() {
                 <div className='flex gap-8 justify-center'>
                     <SelectionAutocomplete data={indexs} selectData='index' setData={setIndex} />
                     <Input size="sm" type="input" label="MA Length RS" value={ma} onValueChange={setMa} />
-                    <Button radius="sm" size="lg" color="primary" onClick={fetchData}>Get Details</Button>
+                    <SelectComponent filterList={filterList} setFilter={setFilter} />
+                    <Button radius="sm" size="lg" color="primary" onClick={fetchData}>Scan</Button>
                 </div>
-                {stockDetailsComponent}
+                {scannerResultComponent}
             </div >
         </>
     )
