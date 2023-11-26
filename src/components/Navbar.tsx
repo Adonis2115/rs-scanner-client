@@ -12,7 +12,7 @@ export default function NavbarComponent() {
             </NavbarBrand>
             <NavbarContent className="hidden sm:flex gap-4" justify="center">
                 {menuItems.map((item, index) => (
-                    <NavbarItem key={index}>
+                    <NavbarItem key={index} isActive={window.location.pathname == item.link ? true : false}>
                         <Link color="foreground" to={item.link}>
                             {item.name}
                         </Link>
