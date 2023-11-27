@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { toast } from "sonner";
+import { Toaster, toast } from "sonner";
 import useSWR from "swr";
 import { stockListWithIndexState } from "../store/stockListState";
 
@@ -15,7 +15,8 @@ export function StockListFetchSet() {
             setStockListWithIndex(data)
         }
     }, [data, setStockListWithIndex])
-    if (isLoading) return toast.info('Fetching Stock List...')
-    if (error) return toast.error('Error Fetching Stock List.')
-    if (data) return toast.success('Fetching Stock List successful')
+    if (isLoading) toast.info('Fetching Stock List...', { duration: 1000 })
+    if (error) toast.error('Error Fetching Stock List.', { duration: 5000 })
+    if (data) toast.success('Fetching Stock List successful', { duration: 1000 })
+    return <Toaster position="bottom-right" />
 }

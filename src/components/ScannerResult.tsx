@@ -1,4 +1,5 @@
 import { Button, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
+import { Toaster, toast } from "sonner";
 import useSWR from "swr";
 
 const fetcher = (...args: Parameters<typeof fetch>) =>
@@ -9,9 +10,14 @@ export default function ScannerResult({ url }: { url: string }) {
     else if (isLoading) return "Loading..."
     const symbols = data.map(item => item.Symbol)
     const copyData = symbols.join(', ')
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText(copyData)
+        toast.success('List copied to clipboard', { duration: 1000 })
+    }
     return (
         <div className="grid">
-            <Button className="justify-self-end mb-4" radius="sm" size="sm" color="primary" onClick={() => navigator.clipboard.writeText(copyData)}>Copy</Button>
+            <Toaster position="bottom-right" />
+            <Button className="justify-self-end mb-4" radius="sm" size="sm" color="primary" onClick={copyToClipboard}>Copy</Button>
             <Table aria-label="Example static collection table">
                 <TableHeader>
                     <TableColumn>Name</TableColumn>
