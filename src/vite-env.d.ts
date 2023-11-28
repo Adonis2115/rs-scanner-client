@@ -13,16 +13,19 @@ interface StockDetail {
   CurrentRS: string;
   MA: string;
   MA_Length: number;
-  Name: string;
   PreviousRS: string;
+  Name: string;
   Stock_id: number;
   Streak: number;
   Symbol: string;
+  ScriptType: string;
+  Industry: string;
 }
 
 interface Stock {
   ID: number;
   Name: string;
-  Index: boolean;
+  ScriptType: string;
+  Industry: string;
   Symbol: string;
 }

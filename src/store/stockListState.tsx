@@ -9,7 +9,7 @@ export const stockListState = selector({
     key: 'stockList',
     get: ({ get }) => {
         const allStocksWithIndex = get(stockListWithIndexState);
-        const stockListFiltered = allStocksWithIndex.filter(stock => !stock.Index)
+        const stockListFiltered = allStocksWithIndex.filter(stock => stock.ScriptType !== "index")
         return stockListFiltered;
     },
 });
@@ -18,7 +18,7 @@ export const indexListState = selector({
     key: 'indexList',
     get: ({ get }) => {
         const allStocksWithIndex = get(stockListWithIndexState);
-        const indexListFiltered = allStocksWithIndex.filter(stock => stock.Index)
+        const indexListFiltered = allStocksWithIndex.filter(stock => stock.ScriptType === "index")
         return indexListFiltered;
     },
 });
