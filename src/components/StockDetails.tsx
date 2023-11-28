@@ -23,26 +23,34 @@ export default function StockDetails({ url }: { url: string }) {
                     <TableCell>{data.Symbol}</TableCell>
                 </TableRow>
                 <TableRow key="3">
+                    <TableCell>Market Cap</TableCell>
+                    <TableCell>{`${data.ScriptType.replace(/^\w/, c => c.toUpperCase())} Cap`}</TableCell>
+                </TableRow>
+                <TableRow key="4">
+                    <TableCell>Industry</TableCell>
+                    <TableCell>{data.Industry}</TableCell>
+                </TableRow>
+                <TableRow key="5">
                     <TableCell>Side</TableCell>
                     <TableCell>{data.Bearish ? "Bearish" : "Bullish"}</TableCell>
                 </TableRow>
-                <TableRow key="4">
+                <TableRow key="6">
                     <TableCell>Cross</TableCell>
                     <TableCell>{data.CrossOver ? `RS Cross Over ${data.MA_Length} MA RS` : (data.CrossUnder ? `RS Cross Under ${data.MA_Length} MA RS` : "-")}</TableCell>
                 </TableRow>
-                <TableRow key="5">
+                <TableRow key="7">
                     <TableCell>RS Last</TableCell>
                     <TableCell>{data.PreviousRS}</TableCell>
                 </TableRow>
-                <TableRow key="6">
+                <TableRow key="8">
                     <TableCell>RS Current</TableCell>
                     <TableCell>{data.CurrentRS}</TableCell>
                 </TableRow>
-                <TableRow key="7">
+                <TableRow key="9">
                     <TableCell>{data.MA_Length} Period MA of RS</TableCell>
                     <TableCell>{data.MA}</TableCell>
                 </TableRow>
-                <TableRow key="8">
+                <TableRow key="10">
                     <TableCell>Current Streak</TableCell>
                     <TableCell>{data.Streak}</TableCell>
                 </TableRow>

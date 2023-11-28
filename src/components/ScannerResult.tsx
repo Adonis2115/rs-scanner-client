@@ -22,6 +22,8 @@ export default function ScannerResult({ url }: { url: string }) {
                 <TableHeader>
                     <TableColumn>Name</TableColumn>
                     <TableColumn>Symbol</TableColumn>
+                    <TableColumn>Market Cap</TableColumn>
+                    <TableColumn>Industry</TableColumn>
                     <TableColumn>MA RS</TableColumn>
                     <TableColumn>Current RS</TableColumn>
                     <TableColumn>Previous RS</TableColumn>
@@ -32,6 +34,8 @@ export default function ScannerResult({ url }: { url: string }) {
                         <TableRow key={index}>
                             <TableCell>{stock.Name}</TableCell>
                             <TableCell>{stock.Symbol}</TableCell>
+                            <TableCell>{`${stock.ScriptType.replace(/^\w/, c => c.toUpperCase())} Cap`}</TableCell>
+                            <TableCell>{stock.Industry}</TableCell>
                             <TableCell>{Number(stock.MA).toFixed(2)}</TableCell>
                             <TableCell>{Number(stock.CurrentRS).toFixed(2)}</TableCell>
                             <TableCell>{Number(stock.PreviousRS).toFixed(2)}</TableCell>
