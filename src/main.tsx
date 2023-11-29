@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RecoilRoot } from "recoil";
 import App from './App.tsx';
-import { StockListFetchSet } from "./components/StockListFetchSet.tsx";
+import { StockListFetchSet } from "./hooks/StockListFetchSet.tsx";
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
