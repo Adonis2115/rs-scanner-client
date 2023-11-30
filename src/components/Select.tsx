@@ -12,6 +12,7 @@ export default function SelectComponent({ filterList, setFilter }: { filterList:
                 className="max-w-xs"
                 size="sm"
                 onChange={handleSelectionChange}
+                defaultSelectedKeys={["crossover"]}
             >
                 {filterList.map((filter) => (
                     <SelectItem key={filter.value} value={filter.value}>

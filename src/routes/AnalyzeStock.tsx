@@ -3,6 +3,7 @@ import { ReactNode, useState } from "react";
 import { useRecoilValue } from "recoil";
 import Navbar from "../components/Navbar";
 import SelectionAutocomplete from "../components/SelectionAutocomplete";
+import SkeletonLoad from "../components/Skeleton";
 import StockDetails from "../components/StockDetails";
 import { indexListState, stockListState } from "../store/stockListState";
 
@@ -21,8 +22,8 @@ function AnalyzeStock() {
             <Navbar />
             <div className="flex flex-col gap-16 mr-16 ml-16 mt-16">
                 <div className='flex gap-8 justify-center'>
-                    <SelectionAutocomplete data={stockList} selectData='stock' setData={setStock} />
-                    <SelectionAutocomplete data={indexList} selectData='index' setData={setIndex} />
+                    {stockList.length ? <SelectionAutocomplete data={stockList} selectData='stock' setData={setStock} defaultKey={stockList[0].ID} /> : <SkeletonLoad />}
+                    {indexList.length ? <SelectionAutocomplete data={indexList} selectData='index' setData={setIndex} defaultKey={indexList[0].ID} /> : <SkeletonLoad />}
                     <Input size="sm" type="input" label="MA Length RS" value={ma} onValueChange={setMa} />
                     <Button radius="sm" size="lg" color="primary" onClick={fetchData}>Get Details</Button>
                 </div>
