@@ -40,15 +40,15 @@ export default function StockDetails({ url }: { url: string }) {
                 </TableRow>
                 <TableRow key="7">
                     <TableCell>RS Last</TableCell>
-                    <TableCell>{data.PreviousRS}</TableCell>
+                    <TableCell>{Number(data.PreviousRS).toFixed(2)}</TableCell>
                 </TableRow>
                 <TableRow key="8">
                     <TableCell>RS Current</TableCell>
-                    <TableCell>{data.CurrentRS}</TableCell>
+                    <TableCell>{Number(data.CurrentRS).toFixed(2)}</TableCell>
                 </TableRow>
                 <TableRow key="9">
                     <TableCell>{data.MA_Length} Period MA of RS</TableCell>
-                    <TableCell>{data.MA}</TableCell>
+                    <TableCell>{Number(data.MA).toFixed(2)}</TableCell>
                 </TableRow>
                 <TableRow key="10">
                     <TableCell>Current Streak</TableCell>
