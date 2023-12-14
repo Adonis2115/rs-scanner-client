@@ -1,8 +1,7 @@
 import { Button, Input } from "@nextui-org/react";
 import { ReactNode, useState } from "react";
 import { useRecoilValue } from "recoil";
-import filterList from '../../selections/filters.json';
-import frequencyList from '../../selections/frequency.json';
+import { filterList, frequencyList } from '../../data/selection';
 import Navbar from "../components/Navbar";
 import ScannerResult from "../components/ScannerResult";
 import SelectFilter from "../components/SelectFilter";

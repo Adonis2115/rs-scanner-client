@@ -1,6 +1,0 @@
-[
-  { "label": "Bullish", "value": "bullish" },
-  { "label": "Bearish", "value": "bearish" },
-  { "label": "Cross Over", "value": "crossover" },
-  { "label": "Cross Under", "value": "crossunder" }
-]
