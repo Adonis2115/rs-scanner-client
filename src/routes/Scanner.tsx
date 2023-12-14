@@ -13,7 +13,7 @@ import { indexListState } from "../store/stockListState";
 
 function Scanner() {
     const indexList = useRecoilValue(indexListState)
-    const [index, setIndex] = useState<number | null>(null)
+    const [index, setIndex] = useState<number | null>(1) // ! default index which is at id 1 in stocks
     const [ma, setMa] = useState<string>("20")
     const [streak, setStreak] = useState<string>("0")
     const [scannerResultComponent, setScannerResultComponent] = useState<ReactNode>(null)

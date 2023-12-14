@@ -12,16 +12,14 @@ import { indexListState, stockListState } from "../store/stockListState";
 function AnalyzeStock() {
     const stockList = useRecoilValue(stockListState)
     const indexList = useRecoilValue(indexListState)
-    const [stock, setStock] = useState<number | null>(null)
-    const [index, setIndex] = useState<number | null>(null)
+    const [stock, setStock] = useState<number | null>(2) // ! default stock id 2
+    const [index, setIndex] = useState<number | null>(1) // ! default index which is at id 1 in stocks
     const [ma, setMa] = useState<string>("20")
     const [stockDetailsComponent, setStockDetailsComponent] = useState<ReactNode>(null)
     const [frequency, setFrequency] = useState<string | null>(null)
     const fetchData = () => {
         setStockDetailsComponent(<StockDetails url={`${import.meta.env.VITE_BASE_URL}/stock/detail?isDaily=${frequency === "daily" ? true : false}&ma=${ma}&stockid=${stock}&index=${index}`} />)
     }
-    console.log(stock)
-    console.log(index)
     return (
         <>
             <Navbar />
