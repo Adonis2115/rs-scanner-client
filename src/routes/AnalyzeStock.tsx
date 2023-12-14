@@ -1,7 +1,9 @@
 import { Button, Input } from "@nextui-org/react";
 import { ReactNode, useState } from "react";
 import { useRecoilValue } from "recoil";
+import frequencyList from '../../selections/frequency.json';
 import Navbar from "../components/Navbar";
+import SelectFrequency from "../components/SelectFrequency";
 import SelectionAutocomplete from "../components/SelectionAutocomplete";
 import SkeletonLoad from "../components/Skeleton";
 import StockDetails from "../components/StockDetails";
@@ -14,9 +16,12 @@ function AnalyzeStock() {
     const [index, setIndex] = useState<number | null>(null)
     const [ma, setMa] = useState<string>("20")
     const [stockDetailsComponent, setStockDetailsComponent] = useState<ReactNode>(null)
+    const [frequency, setFrequency] = useState<string | null>(null)
     const fetchData = () => {
-        setStockDetailsComponent(<StockDetails url={`${import.meta.env.VITE_BASE_URL}/stock/detail?ma=${ma}&stockid=${stock}&index=${index}`} />)
+        setStockDetailsComponent(<StockDetails url={`${import.meta.env.VITE_BASE_URL}/stock/detail?isDaily=${frequency === "daily" ? true : false}&ma=${ma}&stockid=${stock}&index=${index}`} />)
     }
+    console.log(stock)
+    console.log(index)
     return (
         <>
             <Navbar />
@@ -25,6 +30,7 @@ function AnalyzeStock() {
                     {stockList.length ? <SelectionAutocomplete data={stockList} selectData='stock' setData={setStock} defaultKey={stockList[0].ID} /> : <SkeletonLoad />}
                     {indexList.length ? <SelectionAutocomplete data={indexList} selectData='index' setData={setIndex} defaultKey={indexList[0].ID} /> : <SkeletonLoad />}
                     <Input size="sm" type="input" label="MA Length RS" value={ma} onValueChange={setMa} />
+                    <SelectFrequency frequencyList={frequencyList} setFrequency={setFrequency} />
                     <Button radius="sm" size="lg" color="primary" onClick={fetchData}>Get Details</Button>
                 </div>
                 {stockDetailsComponent}

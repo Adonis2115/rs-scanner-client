@@ -1,10 +1,12 @@
 import { Button, Input } from "@nextui-org/react";
 import { ReactNode, useState } from "react";
 import { useRecoilValue } from "recoil";
-import filterList from '../../filters.json';
+import filterList from '../../selections/filters.json';
+import frequencyList from '../../selections/frequency.json';
 import Navbar from "../components/Navbar";
 import ScannerResult from "../components/ScannerResult";
-import SelectComponent from "../components/Select";
+import SelectFilter from "../components/SelectFilter";
+import SelectFrequency from "../components/SelectFrequency";
 import SelectionAutocomplete from "../components/SelectionAutocomplete";
 import SkeletonLoad from "../components/Skeleton";
 import { indexListState } from "../store/stockListState";
@@ -16,8 +18,9 @@ function Scanner() {
     const [streak, setStreak] = useState<string>("0")
     const [scannerResultComponent, setScannerResultComponent] = useState<ReactNode>(null)
     const [filter, setFilter] = useState<string | null>(null)
+    const [frequency, setFrequency] = useState<string | null>(null)
     const fetchData = () => {
-        setScannerResultComponent(<ScannerResult url={`${import.meta.env.VITE_BASE_URL}/rs/${filter}?ma=${ma}&index=${index}&streak=${filter === "bullish" || filter === "bearish" ? streak : 0}`} />)
+        setScannerResultComponent(<ScannerResult url={`${import.meta.env.VITE_BASE_URL}/rs/${filter}?isDaily=${frequency === "daily" ? true : false}&ma=${ma}&index=${index}&streak=${filter === "bullish" || filter === "bearish" ? streak : 0}`} />)
     }
     return (
         <>
@@ -26,7 +29,8 @@ function Scanner() {
                 <div className='flex gap-8 justify-center'>
                     {indexList.length ? <SelectionAutocomplete data={indexList} selectData='index' setData={setIndex} defaultKey={indexList[0].ID} /> : <SkeletonLoad />}
                     <Input size="sm" type="input" label="MA Length RS" value={ma} onValueChange={setMa} />
-                    <SelectComponent filterList={filterList} setFilter={setFilter} />
+                    <SelectFilter filterList={filterList} setFilter={setFilter} />
+                    <SelectFrequency frequencyList={frequencyList} setFrequency={setFrequency} />
                     <Input isDisabled={filter === "bullish" || filter === "bearish" ? false : true} size="sm" type="input" label="No. of Streak" value={streak} onValueChange={setStreak} />
                     <Button radius="sm" size="lg" color="primary" onClick={fetchData}>Scan</Button>
                 </div>
