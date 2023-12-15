@@ -1,4 +1,4 @@
-import { Button, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
+import { Button, Chip, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
 import { useState } from "react";
 import { Toaster, toast } from "sonner";
 import useSWR from "swr";
@@ -12,18 +12,20 @@ export default function ScannerResult({ url }: { url: string }) {
     if (error) return "Error..."
     else if (isLoading) return "Loading..."
     const copyToClipboard = () => {
-        const symbols = selectedSymbolToCopy.map(item => item.Symbol)
-        const copyData = symbols.join(', ')
-        navigator.clipboard.writeText(copyData)
-        toast.success('List copied to clipboard', { duration: 1000 })
+        if (selectedSymbolToCopy.length) {
+            const symbols = selectedSymbolToCopy.map(item => item.Symbol)
+            const copyData = symbols.join(', ')
+            navigator.clipboard.writeText(copyData)
+            toast.success('List copied to clipboard', { duration: 1000 })
+        }
+        else toast.error('Select scripts to copy !', { duration: 1000 })
     }
-    console.log(selectedSymbolToCopy.length)
     const handleSelectionChange = (keys: Set<never> | "all") => {
         setSelectedStocks(keys)
-        if (selectedStocks === 'all') setSelectedSymbolToCopy(data)
+        if (keys === 'all') setSelectedSymbolToCopy(data)
         else {
             const tmpStocks: StockDetail[] = []
-            selectedStocks.forEach((x) => {
+            keys.forEach((x) => {
                 tmpStocks.push(data[x])
             })
             setSelectedSymbolToCopy(tmpStocks)
@@ -32,7 +34,10 @@ export default function ScannerResult({ url }: { url: string }) {
     return (
         <div className="grid">
             <Toaster position="bottom-right" />
-            <Button className="justify-self-end mb-4" radius="sm" size="sm" color="primary" onClick={copyToClipboard}>Copy</Button>
+            <div className="flex gap-4 justify-self-end mb-4" >
+                <Chip size="lg">{`Selected ${selectedSymbolToCopy.length}`}</Chip>
+                <Button size="sm" color="primary" onClick={copyToClipboard}>Copy</Button>
+            </div>
             <Table
                 aria-label="Example static collection table"
                 selectedKeys={selectedStocks}
