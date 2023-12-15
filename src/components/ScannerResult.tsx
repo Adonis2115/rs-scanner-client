@@ -1,7 +1,9 @@
-import { Button, Chip, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
-import { useState } from "react";
+import { Button, Chip, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
+import { SetStateAction, useMemo, useState } from "react";
 import { Toaster, toast } from "sonner";
 import useSWR from "swr";
+import { marketCap } from "../../data/selection";
+import { ChevronDownIcon } from "./UI/ChevronDownIcon";
 
 const fetcher = (...args: Parameters<typeof fetch>) =>
     fetch(...args).then((res) => res.json());
@@ -9,6 +11,19 @@ export default function ScannerResult({ url }: { url: string }) {
     const { data, error, isLoading }: { data: StockDetail[], error: string | undefined, isLoading: boolean } = useSWR(url, fetcher)
     const [selectedStocks, setSelectedStocks] = useState<Set<never> | 'all'>(new Set([]));
     const [selectedSymbolToCopy, setSelectedSymbolToCopy] = useState<StockDetail[]>([])
+    const [marketFilter, setMarketFilter] = useState<MarketFilter>('all')
+    const filteredMarket = useMemo(() => {
+        if (data) {
+            let filteredMarketCap = [...data];
+            if (marketFilter !== "all" && Array.from(marketFilter).length !== marketCap.length) {
+                filteredMarketCap = filteredMarketCap.filter((item) =>
+                    Array.from(marketFilter).includes(item.ScriptType),
+                );
+            }
+            return filteredMarketCap;
+        }
+        else return []
+    }, [data, marketFilter]);
     if (error) return "Error..."
     else if (isLoading) return "Loading..."
     const copyToClipboard = () => {
@@ -22,11 +37,11 @@ export default function ScannerResult({ url }: { url: string }) {
     }
     const handleSelectionChange = (keys: Set<never> | "all") => {
         setSelectedStocks(keys)
-        if (keys === 'all') setSelectedSymbolToCopy(data)
+        if (keys === 'all') setSelectedSymbolToCopy(filteredMarket)
         else {
             const tmpStocks: StockDetail[] = []
             keys.forEach((x) => {
-                tmpStocks.push(data[x])
+                tmpStocks.push(filteredMarket[x])
             })
             setSelectedSymbolToCopy(tmpStocks)
         }
@@ -35,6 +50,27 @@ export default function ScannerResult({ url }: { url: string }) {
         <div className="grid">
             <Toaster position="bottom-right" />
             <div className="flex gap-4 justify-self-end mb-4" >
+                <Dropdown>
+                    <DropdownTrigger className="hidden sm:flex">
+                        <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">
+                            Market Cap
+                        </Button>
+                    </DropdownTrigger>
+                    <DropdownMenu
+                        disallowEmptySelection
+                        aria-label="Table Columns"
+                        closeOnSelect={false}
+                        selectedKeys={marketFilter}
+                        selectionMode="multiple"
+                        onSelectionChange={(keys) => setMarketFilter(keys as SetStateAction<MarketFilter>)}
+                    >
+                        {marketCap.map((cap) => (
+                            <DropdownItem key={cap.value} className="capitalize">
+                                {cap.label}
+                            </DropdownItem>
+                        ))}
+                    </DropdownMenu>
+                </Dropdown>
                 <Chip size="lg">{`Selected ${selectedSymbolToCopy.length}`}</Chip>
                 <Button size="sm" color="primary" onClick={copyToClipboard}>Copy</Button>
             </div>
@@ -56,7 +92,7 @@ export default function ScannerResult({ url }: { url: string }) {
                     <TableColumn>Streak</TableColumn>
                 </TableHeader>
                 <TableBody>
-                    {data.map((stock, index) =>
+                    {filteredMarket.map((stock, index) =>
                         <TableRow key={index}>
                             <TableCell>{stock.Name}</TableCell>
                             <TableCell>{stock.Symbol}</TableCell>

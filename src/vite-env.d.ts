@@ -12,6 +12,7 @@ interface Stock {
   Industry: string;
   Symbol: string;
 }
+
 interface StockDetail extends Stock {
   Bearish: boolean;
   Bullish: boolean;
@@ -23,3 +24,5 @@ interface StockDetail extends Stock {
   PreviousRS: string;
   Streak: number;
 }
+
+type MarketFilter = "all" | "large" | "mid" | "small" | "micro";
