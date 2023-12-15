@@ -49,8 +49,8 @@ export default function ScannerResult({ url }: { url: string }) {
     return (
         <div className="grid">
             <Toaster position="bottom-right" />
-            <div className="flex gap-4 justify-self-end mb-4" >
-                <Dropdown>
+            <div className="flex gap-4 justify-between mb-4" >
+                <Dropdown size="lg">
                     <DropdownTrigger className="hidden sm:flex">
                         <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">
                             Market Cap
