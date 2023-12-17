@@ -13,6 +13,8 @@ export default function ScannerResult({ url }: { url: string }) {
     const [selectedSymbolToCopy, setSelectedSymbolToCopy] = useState<StockDetail[]>([])
     const [marketFilter, setMarketFilter] = useState<MarketFilter>('all')
     const filteredMarket = useMemo(() => {
+        setSelectedStocks(new Set([]))
+        setSelectedSymbolToCopy([])
         if (data) {
             let filteredMarketCap = [...data];
             if (marketFilter !== "all" && Array.from(marketFilter).length !== marketCap.length) {
